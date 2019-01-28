@@ -48,9 +48,15 @@ class Recipe:
 def print_deps(deps, level = 0):
     for d in deps:
         if isinstance(d, Dependency):
-            print('\t' * level, d.recipe.name, d.recipe.time, d.amount)
+            print('\t' * level, d.amount, '*', d.recipe.name, '(' + str(d.recipe.time) + 's)')
             print_deps(d.dependencies, level + 1)
         else:
-            print('\t' * level, d.recipe, d.amount)
+            print('\t' * level, d.amount, '*', d.recipe)
 
-print_deps(Recipe("cannon-shell").get_dependencies())
+print_deps(Recipe("military-science-pack").get_dependencies())
+
+# two products: a, b
+# a * x = z
+# b * y = z
+# => a * x = b * y
+# Find x and y for all 
